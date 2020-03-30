@@ -15,7 +15,7 @@ const makerPage = (req, res) => {
       domos: docs,
     });
   });
-}
+};
 
 const makeDomo = (req, res) => {
   if (!req.body.name || !req.body.age) {
