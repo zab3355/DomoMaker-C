@@ -1,4 +1,4 @@
-// import libraries
+// Import libraries
 const path = require('path');
 const express = require('express');
 const compression = require('compression');
@@ -44,7 +44,7 @@ app.use(session({
     saveUninitialized: true,
 }));
 
-app.engine('handlebars', expressHandlebars({ defaultLayout: 'main' }));
+app.engine('handlebars', expressHandlebars({ defaultLayout: 'main', }));
 app.set('view engine', 'handlebars');
 app.set('views', `${__dirname}/../views`);
 app.use(cookieParser());
