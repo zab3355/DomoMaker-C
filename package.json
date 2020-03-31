@@ -48,10 +48,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zab3355/DomoMaker-A-Start.git"
+    "url": "git+https://github.com/zab3355/DomoMaker-B"
   },
   "bugs": {
-    "url": "https://github.com/zab3355/DomoMaker-A-Start/issues"
+    "url": "https://github.com/zab3355/DomoMaker-B"
   },
-  "homepage": "https://github.com/zab3355/DomoMaker-A-Start#readme"
+  "homepage": "https://github.com/zab3355/DomoMaker-B#readme"
 }
