@@ -31,14 +31,15 @@ mongoose.connect(dbURL, mongooseOptions, (err) => {
 
 let redisURL = {
     //You will need to follow the "Setting up Redis for Local Use" Instructions
-    hostname: 'YOUR_REDIS_SERVER,redislabs.com',
-    port /* redis cloud port */,
+    hostname: 'redis-11966.c12.us-east-1-4.ec2.cloud.redislabs.com',
+    //replace this with the port number of your endpoint url
+    port: '11966',
 };
 
-let redisPASS = 'YOUR_REDIS_PASSWORD';
+let redisPASS = 'qxnYKBGgRAYOmsugNl301mG1mDupOUYK';
 if (process.env.REDISCLOUD_URL){
     redisURL = url.parse(process.env.REDISCLOUD_URL);
-    redisPASS = redisURL.auth.split(':')[1];
+    [, redisPASS] = redisURL.auth.split(':');
 }
 let redisClient = redis.createClient({
     host: redisURL.hostname, 
@@ -59,9 +60,15 @@ app.use(bodyParser.urlencoded({
 
 app.use(session({
     key: 'sessionid',
+    store: new RedisStore({
+        client: redisClient,
+    }),
     secret: 'Domo Arigato',
     resave: true,
     saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+    },
 }));
 
 app.engine('handlebars', expressHandlebars({ defaultLayout: 'main', }));
