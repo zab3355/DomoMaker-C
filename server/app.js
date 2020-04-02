@@ -8,6 +8,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const expressHandlebars = require('express-handlebars');
 const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
+const url = require('url');
+const redis = require('redis');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
@@ -24,6 +27,23 @@ mongoose.connect(dbURL, mongooseOptions, (err) => {
     console.log('Could not connect to database');
     throw err;
   }
+});
+
+let redisURL = {
+    //You will need to follow the "Setting up Redis for Local Use" Instructions
+    hostname: 'YOUR_REDIS_SERVER,redislabs.com',
+    port /* redis cloud port */,
+};
+
+let redisPASS = 'YOUR_REDIS_PASSWORD';
+if (process.env.REDISCLOUD_URL){
+    redisURL = url.parse(process.env.REDISCLOUD_URL);
+    redisPASS = redisURL.auth.split(':')[1];
+}
+let redisClient = redis.createClient({
+    host: redisURL.hostname, 
+    port: redisURL.port,
+    password: redisPASS,
 });
 
 // Pull in our routes
